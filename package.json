@@ -4,9 +4,13 @@
   "description": "Helper functions for my projects",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
-  "keywords": ["node.js", "javascript", "helper"],
+  "keywords": [
+    "node.js",
+    "javascript",
+    "helper"
+  ],
   "author": "SUR0",
   "license": "ISC",
   "repository": {
@@ -16,5 +20,11 @@
   "bugs": {
     "url": "https://github.com/WebSharksLLC/helper-functions/issues"
   },
-  "homepage": "https://github.com/WebSharksLLC/helper-functions#readme"
+  "homepage": "https://github.com/WebSharksLLC/helper-functions#readme",
+  "dependencies": {
+    "mime-types": "^2.1.35"
+  },
+  "devDependencies": {
+    "jest": "^29.0.2"
+  }
 }

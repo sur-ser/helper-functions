@@ -53,17 +53,20 @@ test('string is base64 file', () => {
     )).toBeTruthy();
 
 })
+
 test('string to base64 file', () => {
     expect(() => base64Helper.stringToBase64File(null)).toThrow(TypeError)
     expect(base64Helper.stringToBase64File('uuLMhh==', 'image/png')).toEqual('data:image/png;base64,uuLMhh==');
     expect(base64Helper.stringToBase64File('test string', 'image/png')).toEqual('data:image/png;base64,dGVzdCBzdHJpbmc=');
 
 })
+
 test('string to base64', () => {
     expect(() => base64Helper.stringToBase64(null)).toThrow(TypeError)
     expect(base64Helper.stringToBase64('test string')).toEqual('dGVzdCBzdHJpbmc=');
 
 })
+
 test('string to base64', () => {
     expect(() => base64Helper.base64ToString(null)).toThrow(TypeError)
     expect(() => base64Helper.base64ToString('test string')).toThrow(TypeError)
@@ -71,6 +74,7 @@ test('string to base64', () => {
     expect(base64Helper.base64ToString('dGVzdCBzdHJpbmc=')).toEqual('test string')
 
 })
+
 test('base64 to buffer', () => {
     expect(() => base64Helper.base64ToBuffer(null)).toThrow(TypeError)
     expect(() => base64Helper.base64ToBuffer('test string')).toThrow(TypeError)
@@ -78,6 +82,7 @@ test('base64 to buffer', () => {
     expect(typeof base64Helper.base64ToBuffer('data:image/png;base64,uuLMhh==')).toEqual('object')
 
 })
+
 test('save base64 to file sync', () => {
     const imageBase64 = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEACAhITMkM1EwMFFCLy8vQiccHBwcJyIXFxcXFyIRDAwMDAwMEQwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwBIjMzNCY0IhgYIhQODg4UFA4ODg4UEQwMDAwMEREMDAwMDAwRDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDP/AABEIAAYABgMBIgACEQEDEQH/xABVAAEBAAAAAAAAAAAAAAAAAAAAAxAAAQQCAwEAAAAAAAAAAAAAAgABAxQEIxIkMxMBAQAAAAAAAAAAAAAAAAAAAAARAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AIE7MwkbOUJDJWx+ZjXATitx2/h2bEWvX5Y0npQ7aIiD/9k='
     const imagePath = __dirname + '/test/files/test.jpg'
@@ -89,6 +94,7 @@ test('save base64 to file sync', () => {
     expect(filePath).toEqual(imagePath)
 
 })
+
 test('save base64 to file async', async () => {
     const imageBase64 = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEACAhITMkM1EwMFFCLy8vQiccHBwcJyIXFxcXFyIRDAwMDAwMEQwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwBIjMzNCY0IhgYIhQODg4UFA4ODg4UEQwMDAwMEREMDAwMDAwRDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDP/AABEIAAYABgMBIgACEQEDEQH/xABVAAEBAAAAAAAAAAAAAAAAAAAAAxAAAQQCAwEAAAAAAAAAAAAAAgABAxQEIxIkMxMBAQAAAAAAAAAAAAAAAAAAAAARAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AIE7MwkbOUJDJWx+ZjXATitx2/h2bEWvX5Y0npQ7aIiD/9k='
     const imagePath = __dirname + '/test/files/test1.jpg'
@@ -97,5 +103,21 @@ test('save base64 to file async', async () => {
     }
     let filePath = await base64Helper.saveBase64ToFile(imageBase64, imagePath)
     expect(filePath).toEqual(imagePath)
+
+})
+
+test('load file as base64String async', async () => {
+    const imageBase64 = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEACAhITMkM1EwMFFCLy8vQiccHBwcJyIXFxcXFyIRDAwMDAwMEQwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwBIjMzNCY0IhgYIhQODg4UFA4ODg4UEQwMDAwMEREMDAwMDAwRDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDP/AABEIAAYABgMBIgACEQEDEQH/xABVAAEBAAAAAAAAAAAAAAAAAAAAAxAAAQQCAwEAAAAAAAAAAAAAAgABAxQEIxIkMxMBAQAAAAAAAAAAAAAAAAAAAAARAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AIE7MwkbOUJDJWx+ZjXATitx2/h2bEWvX5Y0npQ7aIiD/9k='
+    const imagePath = __dirname + '/test/files/test1.jpg'
+    let base64String = await base64Helper.loadFileAsBase64(imagePath)
+    expect(base64String).toEqual(imageBase64)
+
+})
+
+test('load file as base64String sync', () => {
+    const imageBase64 = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEACAhITMkM1EwMFFCLy8vQiccHBwcJyIXFxcXFyIRDAwMDAwMEQwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwBIjMzNCY0IhgYIhQODg4UFA4ODg4UEQwMDAwMEREMDAwMDAwRDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDP/AABEIAAYABgMBIgACEQEDEQH/xABVAAEBAAAAAAAAAAAAAAAAAAAAAxAAAQQCAwEAAAAAAAAAAAAAAgABAxQEIxIkMxMBAQAAAAAAAAAAAAAAAAAAAAARAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AIE7MwkbOUJDJWx+ZjXATitx2/h2bEWvX5Y0npQ7aIiD/9k='
+    const imagePath = __dirname + '/test/files/test1.jpg'
+    let base64String = base64Helper.loadFileAsBase64Sync(imagePath)
+    expect(base64String).toEqual(imageBase64)
 
 })

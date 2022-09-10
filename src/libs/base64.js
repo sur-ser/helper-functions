@@ -1,4 +1,5 @@
 const fs = require("fs");
+const mime = require('mime-types')
 const {random: strRandom} = require("./string");
 const regex = '(?:[A-Za-z0-9+\\/]{4})*(?:[A-Za-z0-9+\\/]{2}==|[A-Za-z0-9+\/]{3}=)' // ?
 const mimeRegex = '(data:\\w+\\/[a-zA-Z\\+\\-\\.]+;base64,)'
@@ -99,5 +100,18 @@ module.exports = {
                 resolve(path)
             })
         })
+    },
+    loadFileAsBase64: function (path) {
+        return new Promise((resolve, reject) => {
+            fs.readFile(path, (err, data) => {
+                if (err) {
+                    reject(err)
+                }
+                resolve(`data:${mime.lookup(path)};base64,${data.toString('base64')}`)
+            })
+        })
+    },
+    loadFileAsBase64Sync: function (path) {
+        return `data:${mime.lookup(path)};base64,${fs.readFileSync(path).toString('base64')}`
     }
 }
